@@ -50,7 +50,9 @@ float binomial(int n, int k, float t) {
 
 void GL_render()
 {
-    float x, y, point;
+    float x, y;
+    float sum_x = 0;
+    float sum_y = 0;
     glClear(GL_COLOR_BUFFER_BIT);
     glutSwapBuffers();
 
@@ -62,11 +64,14 @@ void GL_render()
     // glVertex2f(.5f,.5f);
     // glVertex2f(-.5f,.5f);
     for (float t = 0.0; t < 1.0; t += 0.01) {
+    sum_x = sum_y = 0;
         for (int i = 0; i < P.size(); i++) {
             x = binomial(P.size(), i, t) * P.at(i)[0];
             y = binomial(P.size(), i, t) * P.at(i)[1];
-            point = vec2(x, y);
+            sum_x += x;
+            sum_y += y;
         }
+        glVertex2f(sum_x, sum_y);
     }
     glEnd();
     glFlush();
